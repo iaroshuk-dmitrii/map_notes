@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:map_notes/map_screen.dart';
-import 'package:map_notes/position_cubit.dart';
+import 'package:map_notes/business_logic/note_cubit.dart';
+import 'package:map_notes/screens/map_screen.dart';
+import 'package:map_notes/business_logic/position_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<PositionCubit>(
-          create: (BuildContext context) => PositionCubit()..getPosition(),
-        ),
+        BlocProvider<PositionCubit>(create: (BuildContext context) => PositionCubit()..getPosition()),
+        BlocProvider<NoteCubit>(create: (BuildContext context) => NoteCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
