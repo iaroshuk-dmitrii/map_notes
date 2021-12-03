@@ -6,6 +6,7 @@ import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/models/note_model.dart';
 import 'package:map_notes/screens/create_note_screen.dart';
 import 'package:map_notes/business_logic/position_cubit.dart';
+import 'package:map_notes/screens/note_info_screen.dart';
 import 'package:map_notes/screens/notes_screen.dart';
 import 'package:map_notes/widgets/bottom_navigation_bar.dart';
 
@@ -21,11 +22,14 @@ class MapScreen extends StatelessWidget {
         height: 40,
         width: 100,
         point: LatLng(note.latitude, note.longitude),
-        builder: (context) => Column(
-          children: [
-            const Icon(Icons.sticky_note_2_outlined),
-            Text(note.title, softWrap: false, overflow: TextOverflow.ellipsis)
-          ],
+        builder: (context) => GestureDetector(
+          child: Column(
+            children: [
+              const Icon(Icons.sticky_note_2_outlined),
+              Text(note.title, softWrap: false, overflow: TextOverflow.ellipsis)
+            ],
+          ),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => NoteInfoScreen(note: note))),
         ),
       ));
     }

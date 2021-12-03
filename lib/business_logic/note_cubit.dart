@@ -12,6 +12,9 @@ class NoteCubit extends Cubit<NoteState> {
 
   Future<void> deleteNote(Note note) async {
     //TODO
+    List<Note> notes = state.notes;
+    notes.remove(note);
+    emit(NoteState(notes));
   }
 }
 

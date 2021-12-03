@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/business_logic/position_cubit.dart';
 import 'package:map_notes/screens/map_screen.dart';
+import 'package:map_notes/screens/note_info_screen.dart';
 import 'package:map_notes/widgets/bottom_navigation_bar.dart';
 
 class NotesScreen extends StatelessWidget {
@@ -19,14 +20,17 @@ class NotesScreen extends StatelessWidget {
             child: BlocBuilder<NoteCubit, NoteState>(
               builder: (context, noteState) {
                 return ListView.builder(
-                    itemCount: noteState.notes.length,
-                    itemBuilder: (context, index) => Card(
-                          child: ListTile(
-                            title: Text(noteState.notes[index].title),
-                            subtitle: Text(noteState.notes[index].description!),
-                          ),
-                          elevation: 5,
-                        ));
+                  itemCount: noteState.notes.length,
+                  itemBuilder: (context, index) => Card(
+                    child: ListTile(
+                      title: Text(noteState.notes[index].title),
+                      subtitle: Text(noteState.notes[index].description),
+                      onTap: () => Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => NoteInfoScreen(note: noteState.notes[index]))),
+                    ),
+                    elevation: 5,
+                  ),
+                );
               },
             ),
           ),
