@@ -1,0 +1,45 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:map_notes/business_logic/note_cubit.dart';
+import 'package:map_notes/business_logic/position_cubit.dart';
+import 'package:map_notes/screens/map_screen.dart';
+import 'package:map_notes/widgets/bottom_navigation_bar.dart';
+
+class NotesScreen extends StatelessWidget {
+  NotesScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Expanded(
+            child: BlocBuilder<NoteCubit, NoteState>(
+              builder: (context, noteState) {
+                return ListView.builder(
+                    itemCount: noteState.notes.length,
+                    itemBuilder: (context, index) => Card(
+                          child: ListTile(
+                            title: Text(noteState.notes[index].title),
+                            subtitle: Text(noteState.notes[index].description!),
+                          ),
+                          elevation: 5,
+                        ));
+              },
+            ),
+          ),
+          MyBottomNavigationBar(
+            navigationType: NavigationType.notes,
+            onPressedMap: () {
+              context.read<PositionCubit>().getPosition();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => MapScreen()), (Route<dynamic> route) => false);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}

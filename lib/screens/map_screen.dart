@@ -6,6 +6,7 @@ import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/models/note_model.dart';
 import 'package:map_notes/screens/create_note_screen.dart';
 import 'package:map_notes/business_logic/position_cubit.dart';
+import 'package:map_notes/screens/notes_screen.dart';
 import 'package:map_notes/widgets/bottom_navigation_bar.dart';
 
 class MapScreen extends StatelessWidget {
@@ -18,12 +19,12 @@ class MapScreen extends StatelessWidget {
     for (var note in notes) {
       markers.add(Marker(
         height: 40,
-        width: 20,
+        width: 100,
         point: LatLng(note.latitude, note.longitude),
         builder: (context) => Column(
           children: [
             const Icon(Icons.sticky_note_2_outlined),
-            Text(note.title),
+            Text(note.title, softWrap: false, overflow: TextOverflow.ellipsis)
           ],
         ),
       ));
@@ -74,10 +75,12 @@ class MapScreen extends StatelessWidget {
               ),
             ),
             MyBottomNavigationBar(
-                navigationType: NavigationType.map,
-                onPressedNotes: () {
-                  //TODO
-                }),
+              navigationType: NavigationType.map,
+              onPressedNotes: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => NotesScreen()), (Route<dynamic> route) => false);
+              },
+            ),
           ],
         ),
       ),
