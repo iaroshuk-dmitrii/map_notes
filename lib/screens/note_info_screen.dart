@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/models/note_model.dart';
+import 'package:map_notes/widgets/delete_note_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -13,7 +14,6 @@ class NoteInfoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
@@ -40,11 +40,12 @@ class NoteInfoScreen extends StatelessWidget {
           ElevatedButton(
             child: const Text('Удалить заметку'),
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-            onLongPress: () {
-              context.read<NoteCubit>().deleteNote(note);
-              Navigator.of(context).pop();
-            },
-            onPressed: () {},
+            onPressed: () => deleteNoteDialog(
+                context: context,
+                onConfirm: () {
+                  context.read<NoteCubit>().deleteNote(note);
+                  Navigator.of(context).pop();
+                }),
           ),
         ],
       ),
