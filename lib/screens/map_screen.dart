@@ -19,14 +19,18 @@ class MapScreen extends StatelessWidget {
     List<Marker> markers = [];
     for (var note in notes) {
       markers.add(Marker(
-        height: 40,
+        height: 56,
         width: 100,
         point: LatLng(note.latitude, note.longitude),
         builder: (context) => GestureDetector(
           child: Column(
             children: [
-              const Icon(Icons.sticky_note_2_outlined),
-              Text(note.title, softWrap: false, overflow: TextOverflow.ellipsis)
+              Text(note.title, softWrap: false, overflow: TextOverflow.ellipsis),
+              Image.asset(
+                'assets/images/note_icon.png',
+                height: 40,
+                width: 40,
+              ),
             ],
           ),
           onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => NoteInfoScreen(note: note))),
@@ -82,7 +86,7 @@ class MapScreen extends StatelessWidget {
               navigationType: NavigationType.map,
               onPressedNotes: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => NotesScreen()), (Route<dynamic> route) => false);
+                    MaterialPageRoute(builder: (context) => const NotesScreen()), (Route<dynamic> route) => false);
               },
             ),
           ],

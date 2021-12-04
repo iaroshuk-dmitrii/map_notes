@@ -39,8 +39,6 @@ class CreateNoteScreen extends StatelessWidget {
               minLines: 3,
               maxLines: 10,
             ),
-            Text(latLng.latitude.toString()),
-            Text(latLng.longitude.toString()),
             ElevatedButton(
               child: const Text('Создать'),
               onPressed: () {
@@ -49,6 +47,7 @@ class CreateNoteScreen extends StatelessWidget {
                   description: _controllerDescription.text,
                   latitude: latLng.latitude,
                   longitude: latLng.longitude,
+                  dateTime: DateTime.now(),
                 );
                 context.read<NoteCubit>().createNote(note);
                 Navigator.of(context).pop();

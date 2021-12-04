@@ -3,5 +3,14 @@ class Note {
   double longitude;
   String title;
   String description;
-  Note({required this.latitude, required this.longitude, required this.title, required this.description});
+  DateTime dateTime;
+  int? id;
+  Note({
+    required this.latitude,
+    required this.longitude,
+    required this.title,
+    required this.description,
+    required this.dateTime,
+    this.id,
+  });
 }

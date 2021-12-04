@@ -14,11 +14,15 @@ class MyBottomNavigationBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         BottomMapIcon(
-          color: navigationType == NavigationType.map ? Colors.blue : Colors.grey,
+          color: navigationType == NavigationType.map
+              ? Theme.of(context).colorScheme.onSurface
+              : Theme.of(context).colorScheme.surface,
           onPressed: onPressedMap,
         ),
         BottomNotesIcon(
-          color: navigationType == NavigationType.notes ? Colors.blue : Colors.grey,
+          color: navigationType == NavigationType.notes
+              ? Theme.of(context).colorScheme.onSurface
+              : Theme.of(context).colorScheme.surface,
           onPressed: onPressedNotes,
         )
       ],

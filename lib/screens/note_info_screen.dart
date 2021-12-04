@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/models/note_model.dart';
-import 'package:flutter/src/material/material_state.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class NoteInfoScreen extends StatelessWidget {
   const NoteInfoScreen({Key? key, required this.note}) : super(key: key);
@@ -27,6 +27,13 @@ class NoteInfoScreen extends StatelessWidget {
             child: Text(
               note.description,
               style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              DateFormat().format(note.dateTime),
+              style: const TextStyle(fontSize: 10),
             ),
           ),
           Expanded(child: Container()),

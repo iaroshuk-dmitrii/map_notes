@@ -8,7 +8,7 @@ import 'package:map_notes/screens/note_info_screen.dart';
 import 'package:map_notes/widgets/bottom_navigation_bar.dart';
 
 class NotesScreen extends StatelessWidget {
-  NotesScreen({Key? key}) : super(key: key);
+  const NotesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
