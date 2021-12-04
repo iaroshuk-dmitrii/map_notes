@@ -14,7 +14,6 @@ class NotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Column(
         children: [
           Expanded(
@@ -22,21 +21,24 @@ class NotesScreen extends StatelessWidget {
               builder: (context, noteState) {
                 return ListView.builder(
                   itemCount: noteState.notes.length,
-                  itemBuilder: (context, index) => Card(
-                    child: ListTile(
-                      title: Text(noteState.notes[index].title),
-                      subtitle: Text(noteState.notes[index].description),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => NoteInfoScreen(note: noteState.notes[index])),
+                  itemBuilder: (context, i) {
+                    int index = noteState.notes.length - 1 - i;
+                    return Card(
+                      child: ListTile(
+                        title: Text(noteState.notes[index].title),
+                        subtitle: Text(noteState.notes[index].description),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => NoteInfoScreen(note: noteState.notes[index])),
+                        ),
+                        onLongPress: () => deleteNoteDialog(
+                            context: context,
+                            onConfirm: () {
+                              context.read<NoteCubit>().deleteNote(noteState.notes[index]);
+                            }),
                       ),
-                      onLongPress: () => deleteNoteDialog(
-                          context: context,
-                          onConfirm: () {
-                            context.read<NoteCubit>().deleteNote(noteState.notes[index]);
-                          }),
-                    ),
-                    elevation: 5,
-                  ),
+                      elevation: 5,
+                    );
+                  },
                 );
               },
             ),
