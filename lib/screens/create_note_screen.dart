@@ -14,7 +14,7 @@ class CreateNoteScreen extends StatelessWidget {
     TextEditingController _controllerDescription = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Создать заметку')),
+        title: const Text('Создать заметку'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
