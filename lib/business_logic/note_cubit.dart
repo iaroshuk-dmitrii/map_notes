@@ -47,6 +47,21 @@ class NoteCubit extends Cubit<NoteState> {
     await databaseHelper.delete(note.id!);
     emit(NoteState(notes));
   }
+
+  Future<void> updateNote(Note newNote) async {
+    List<Note> notes = state.notes;
+    notes.removeWhere((note) => note.id == newNote.id);
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnTitle: newNote.title,
+      DatabaseHelper.columnDescription: newNote.description,
+      DatabaseHelper.columnLatitude: newNote.latitude,
+      DatabaseHelper.columnLongitude: newNote.longitude,
+      DatabaseHelper.columnDateTime: newNote.dateTime.toIso8601String(),
+    };
+    await databaseHelper.update(newNote.id!, row);
+    notes.add(newNote);
+    emit(NoteState(notes));
+  }
 }
 
 class NoteState {

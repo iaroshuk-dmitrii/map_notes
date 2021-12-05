@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_notes/models/note_model.dart';
 
 class MapWithMarkers extends StatelessWidget {
-  MapWithMarkers({
+  const MapWithMarkers({
     Key? key,
     required this.mapController,
     required this.onMapLongPress,
@@ -13,7 +13,7 @@ class MapWithMarkers extends StatelessWidget {
   }) : super(key: key);
 
   final MapController mapController;
-  List<Note> notes;
+  final List<Note> notes;
   final void Function(LatLng latLng) onMapLongPress;
   final void Function(Note note) onMarkerTap;
 

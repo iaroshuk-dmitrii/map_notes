@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_notes/business_logic/note_cubit.dart';
 import 'package:map_notes/models/note_model.dart';
+import 'package:map_notes/screens/edit_note_screen.dart';
 import 'package:map_notes/widgets/delete_note_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +38,15 @@ class NoteInfoScreen extends StatelessWidget {
             ),
           ),
           Expanded(child: Container()),
+          ElevatedButton(
+            child: const Text('Изменить заметку'),
+            // style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNoteScreen(note: note)));
+              // context.read<NoteCubit>().updateNote(note);
+              // Navigator.of(context).pop();
+            },
+          ),
           ElevatedButton(
             child: const Text('Удалить заметку'),
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
