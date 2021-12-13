@@ -24,8 +24,22 @@ class MapScreen extends StatelessWidget {
       body: BlocListener<PositionCubit, PositionState>(
         listener: (previousState, currentState) {
           if (currentState is PositionLoadedState) {
-            _mapController.onReady.then(
-                (value) => _mapController.moveAndRotate(LatLng(currentState.latitude, currentState.longitude), 14, 0));
+            _mapController.onReady.then((value) =>
+                _mapController.moveAndRotate(LatLng(currentState.latitude, currentState.longitude), 15.5, 0));
+          }
+          if (currentState is PositionErrorState) {
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return const SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: Text('Предоставьте приложению разрешение на доступ к вашему местоположению.',
+                        textAlign: TextAlign.center),
+                  ),
+                );
+              },
+            );
           }
         },
         child: Column(

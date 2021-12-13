@@ -7,16 +7,17 @@ class PositionCubit extends Cubit<PositionState> {
 
   Future<void> getPosition() async {
     LocationPermission locationPermission = await Geolocator.checkPermission();
-    if (locationPermission != LocationPermission.denied || locationPermission != LocationPermission.deniedForever) {
-      emit(const PositionLoadingState());
-      try {
-        Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high,
-        );
-        emit(PositionLoadedState(latitude: position.latitude, longitude: position.longitude));
-      } catch (e) {
-        emit(const PositionErrorState());
-      }
+    emit(const PositionLoadingState());
+    if (locationPermission == LocationPermission.denied || locationPermission == LocationPermission.deniedForever) {
+      await Geolocator.requestPermission();
+    }
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      emit(PositionLoadedState(latitude: position.latitude, longitude: position.longitude));
+    } catch (e) {
+      emit(const PositionErrorState());
     }
   }
 }
