@@ -45,9 +45,11 @@ class MapWithMarkers extends StatelessWidget {
       markers.add(Marker(
         height: 56,
         width: 100,
+        anchorPos: AnchorPos.align(AnchorAlign.top),
         point: LatLng(note.latitude, note.longitude),
         builder: (context) => GestureDetector(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 note.title,
