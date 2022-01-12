@@ -32,6 +32,9 @@ class MapWithMarkers extends StatelessWidget {
         TileLayerOptions(
           urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           subdomains: ['a', 'b', 'c'],
+          attributionBuilder: (_) {
+            return const Text("© OpenStreetMap contributors");
+          },
           retinaMode: true,
         ),
         MarkerLayerOptions(markers: _buildMarkersList(context, notes: notes)),
