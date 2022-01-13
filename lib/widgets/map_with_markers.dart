@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_notes/models/note_model.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 
 class MapWithMarkers extends StatelessWidget {
   const MapWithMarkers({
@@ -28,6 +29,9 @@ class MapWithMarkers extends StatelessWidget {
         zoom: 10,
         minZoom: 3.5,
         maxZoom: 17,
+        plugins: [
+          MarkerClusterPlugin(),
+        ],
       ),
       children: [
         TileLayerWidget(
@@ -41,8 +45,27 @@ class MapWithMarkers extends StatelessWidget {
           ),
         ),
         LocationMarkerLayerWidget(),
-        MarkerLayerWidget(
-          options: MarkerLayerOptions(markers: _buildMarkersList(context, notes: notes)),
+        MarkerClusterLayerWidget(
+          options: MarkerClusterLayerOptions(
+              maxClusterRadius: 60,
+              size: const Size(40, 40),
+              fitBoundsOptions: const FitBoundsOptions(
+                padding: EdgeInsets.all(50),
+                maxZoom: 17,
+              ),
+              rotate: true,
+              rotateAlignment: AlignmentDirectional.bottomCenter,
+              anchor: AnchorPos.align(AnchorAlign.center),
+              markers: _buildMarkersList(context, notes: notes),
+              showPolygon: false,
+              builder: (BuildContext context, List<Marker> markers) {
+                return FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  child: Text(markers.length.toString()),
+                  onPressed: null,
+                );
+              }),
         ),
       ],
     );
