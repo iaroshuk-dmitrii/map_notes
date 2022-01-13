@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_notes/models/note_model.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 
 class MapWithMarkers extends StatelessWidget {
   const MapWithMarkers({
@@ -28,16 +29,21 @@ class MapWithMarkers extends StatelessWidget {
         minZoom: 3.5,
         maxZoom: 17,
       ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          subdomains: ['a', 'b', 'c'],
-          attributionBuilder: (_) {
-            return const Text("© OpenStreetMap contributors");
-          },
-          retinaMode: true,
+      children: [
+        TileLayerWidget(
+          options: TileLayerOptions(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+            attributionBuilder: (_) {
+              return const Text("© OpenStreetMap contributors");
+            },
+            retinaMode: true,
+          ),
         ),
-        MarkerLayerOptions(markers: _buildMarkersList(context, notes: notes)),
+        LocationMarkerLayerWidget(),
+        MarkerLayerWidget(
+          options: MarkerLayerOptions(markers: _buildMarkersList(context, notes: notes)),
+        ),
       ],
     );
   }

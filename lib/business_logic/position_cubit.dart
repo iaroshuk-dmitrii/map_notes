@@ -13,7 +13,7 @@ class PositionCubit extends Cubit<PositionState> {
     }
     try {
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        desiredAccuracy: LocationAccuracy.bestForNavigation,
       );
       emit(PositionLoadedState(latitude: position.latitude, longitude: position.longitude));
     } catch (e) {
