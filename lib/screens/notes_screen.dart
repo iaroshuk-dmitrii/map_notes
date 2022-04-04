@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_notes/business_logic/note_cubit.dart';
@@ -25,8 +24,16 @@ class NotesScreen extends StatelessWidget {
                     int index = noteState.notes.length - 1 - i;
                     return Card(
                       child: ListTile(
-                        title: Text(noteState.notes[index].title),
-                        subtitle: Text(noteState.notes[index].description),
+                        title: Text(
+                          noteState.notes[index].title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          noteState.notes[index].description,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => NoteInfoScreen(note: noteState.notes[index])),
                         ),
